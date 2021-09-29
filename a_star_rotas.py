@@ -64,6 +64,7 @@ class Grafo:
     jipa.add_adjacentes(Adjacente(teixeiropolis,53))
     jipa.add_adjacentes(Adjacente(alvorada,80))
     jipa.add_adjacentes(Adjacente(medice,36))
+    jipa.add_adjacentes(Adjacente(ministro_andreazza,127))
 
     #adicionar os adjacentes de Ouro Preto
     opo.add_adjacentes(Adjacente(jipa,40))
@@ -91,5 +92,26 @@ class Grafo:
     teixeiropolis.add_adjacentes(Adjacente(jipa,52))
     teixeiropolis.add_adjacentes((Adjacente(urupa,31)))
 
+    #Adicionar adjacentes de Alvorada do Oeste
+    alvorada.add_adjacentes(Adjacente(jipa,80))
+    alvorada.add_adjacentes(Adjacente(urupa,30))
+    alvorada.add_adjacentes(Adjacente(sao_miguel,69))
+
+    #Adicionar adjacentes de Alvorada do Oeste
+    sao_miguel.add_adjacentes(Adjacente(alvorada,69))
+    sao_miguel.add_adjacentes(Adjacente(nova_brasilandia,51))
+    sao_miguel.add_adjacentes(Adjacente(seringueiras,41))
+
+    #Adicionar adjacentes de seringueiras
+    seringueiras.add_adjacentes(Adjacente(sao_miguel,41))
+    seringueiras.add_adjacentes(Adjacente(sao_francisco,72))
+
+    # Adicionar adjacentes são francisco
+    sao_francisco.add_adjacentes(Adjacente(seringueiras,72))
+    sao_francisco.add_adjacentes(Adjacente(costa_marques,110))
+
+    # Adicionar adjacentes de costa marques
+    costa_marques.add_adjacentes(Adjacente(sao_francisco,110))
+
 grafo = Grafo()
-grafo.jipa.show_adjacentes()
+grafo.costa_marques.show_adjacentes()
