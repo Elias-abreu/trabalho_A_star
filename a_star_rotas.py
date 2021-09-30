@@ -6,6 +6,7 @@ class Vertice:
         self.rotulo = rotulo #Irá armazenar o nome das cidades
         self.distancia_objetivo = distancia_objetivo # Receberá a estimativa para chegada ao nó objetivo
         self.adjacentes = [] #Irá armazenar os nós/vértices adjacentes (ou seja, os nós que ligam ao atual
+        self.visitado = False #Irá controlar se a vertice foi visitada ou não
 
     #Utilizado para adicionar adjacente
     def add_adjacentes(self,adjacente):
@@ -128,6 +129,7 @@ class Grafo:
     medice.add_adjacentes(Adjacente(ministro_andreazza,90))
     medice.add_adjacentes(Adjacente(castanheiras,41))
     medice.add_adjacentes(Adjacente(cacoal,70))
+    medice.add_adjacentes(Adjacente(rolim_de_moura,73))
 
     ministro_andreazza.add_adjacentes(Adjacente(jipa,88))
     ministro_andreazza.add_adjacentes(Adjacente(medice,90))
@@ -157,6 +159,7 @@ class Grafo:
     rolim_de_moura.add_adjacentes(Adjacente(cacoal,63))
     rolim_de_moura.add_adjacentes(Adjacente(novo_horizonte,26))
     rolim_de_moura.add_adjacentes(Adjacente(santa_luzia,20))
+    rolim_de_moura.add_adjacentes(Adjacente(medice,73))
 
     primavera_de_rondonia.add_adjacentes(Adjacente(pimenta_boeno,28))
     primavera_de_rondonia.add_adjacentes(Adjacente(sao_felipe,30))
@@ -222,13 +225,40 @@ class Vetor_Ordenado:
     def imprimir_adjacentes_ordenados(self):
         for i in self.lista:
             print(i.vertice.rotulo, " Tempo estimado até Jipa (Minutos): ", i.vertice.distancia_objetivo,
-                  "  Distância (KM): ", i.custo, "  Distância A*: ", i.distancia_a_star)
+                  "  Distância (KM): ", i.custo, "  Calculo A*: ", i.distancia_a_star)
+
+class A_Star:
+    def __init__(self,objetivo):
+        #Parãmentro objetivo receberá a cidade que se deseha chegar
+        self.objetivo = objetivo
+        self.escontrado = False #Apenas para controlar se chegou ao objetivo ou não
+
+    def buscar(self,atual):
+        print("----------------")
+        print("Atual: {}".format(atual.rotulo))
+        #Compara se o atual é objetivo, se sim marca como encontrado
+        if(atual == self.objetivo):
+            self.escontrado = True
+            print("Chegou")
+        else:
+            ordenaxao = Vetor_Ordenado(atual.adjacentes)
+            ordenaxao.ordenar_menor()
+            for adj in ordenaxao.lista:
+                if(adj.vertice.visitado == False):
+                    adj.vertice.visitado == True
+            ordenaxao.imprimir_adjacentes_ordenados()
+            self.buscar(ordenaxao.lista[0].vertice)
+
+
 
 
 grafo = Grafo()
 #print(grafo.jipa.adjacentes[0].vertice.rotulo," Tempo estimado até Jipa (Minutos): ",grafo.jipa.adjacentes[0].vertice.distancia_objetivo,"  Distância (KM): ",grafo.jipa.adjacentes[0].custo, "  Distância A*: ",grafo.jipa.adjacentes[0].distancia_a_star)
 
-lista = grafo.jipa.adjacentes
-o = Vetor_Ordenado(lista)
-o.ordenar_menor()
-o.imprimir_adjacentes_ordenados()
+#lista = grafo.cacoal.adjacentes
+#o = Vetor_Ordenado(lista)
+#o.ordenar_menor()
+#o.imprimir_adjacentes_ordenados()
+
+busca = A_Star(grafo.jipa)
+busca.buscar(grafo.sao_miguel)
