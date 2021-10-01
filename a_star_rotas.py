@@ -1,4 +1,8 @@
+import networkx as nx
 import numpy as np
+import matplotlib.pyplot as plt
+
+todos_adjacentes = []
 
 #Classe para criar as vértices (nós) do grafo
 class Vertice:
@@ -33,22 +37,21 @@ class Grafo:
     #A primeira heurística é o tempo estimado para chegada, coloquei em minutos
     # Os testes até então vão de Pimenta Bueno a Ouro Preto
     jipa = Vertice('Ji-paraná',0)
-    medice = Vertice('Presidente Médici',36) # Nome da cidade e o f(h), heuristica, aqui a estimativa de tempo até o objetivo
+    medice = Vertice('Presidente Médici',40) # Nome da cidade e o f(h), heuristica, aqui a estimativa de tempo até o objetivo
     opo = Vertice('Ouro Preto do Oeste',45)
     teixeiropolis = Vertice('Teixeirópolis',55)
-    alvorada = Vertice('Alvorada D. Oeste',150)
+    alvorada = Vertice('Alvorada D. Oeste',90)
     ministro_andreazza = Vertice('Ministro Andreazza',120)
-    castanheiras = Vertice('Castanheiras',95)
-    cacoal = Vertice('Cacoal',110)
-    rolim_de_moura = Vertice('Rolim de Moura',120)
-    espigao_d_oeste = Vertice('Espigão D. Oeste',195)
-    parecis = Vertice('Parecis',200)
-    pimenta_boeno = Vertice('Pimenta Bueno',160)
-    urupa = Vertice('Urupá',80)
+    castanheiras = Vertice('Castanheiras',100)
+    cacoal = Vertice('Cacoal',115)
+    rolim_de_moura = Vertice('Rolim de Moura',115)
+    espigao_d_oeste = Vertice('Espigão D. Oeste',185)
+    pimenta_boeno = Vertice('Pimenta Bueno',165)
+    urupa = Vertice('Urupá',85)
     novo_horizonte = Vertice('Novo Horizonte do Oeste',130)
-    nova_brasilandia = Vertice('Nova Brasilândia D. Oeste',145)
+    nova_brasilandia = Vertice('Nova Brasilândia D. Oeste',150)
     sao_miguel = Vertice('São Miguel do Guaporé',160)
-    seringueiras = Vertice('Seringueiras',185)
+    seringueiras = Vertice('Seringueiras',190)
     sao_francisco = Vertice('São Francisco do Guaporé',240)
     costa_marques = Vertice('Costa Marques',330)
     santa_luzia = Vertice('Santa Luzia D. Oeste',140)
@@ -59,14 +62,15 @@ class Grafo:
     #jaru = Vertice('Jaru',95) #retirei Jaru para ficar marcado no grafo
     nova_uniao = Vertice('Nova União',90)
     mirante_da_serra = Vertice('Mirante da Serra',110)
-    alto_alegre_do_parecis = Vertice('Alto Alegre dos Parecis',160)
+    alto_alegre_do_parecis = Vertice('Alto Alegre dos Parecis',180)
+
 
     #Conectar as cidades adjacentes com o custo estimado (inicialmente a distância)
 
     #Adicionar os adjacentes de Ji-Paraná
     jipa.add_adjacentes(Adjacente(opo,40))
     jipa.add_adjacentes(Adjacente(teixeiropolis,53))
-    jipa.add_adjacentes(Adjacente(alvorada,80))
+    jipa.add_adjacentes(Adjacente(alvorada,79))
     jipa.add_adjacentes(Adjacente(medice,36))
     jipa.add_adjacentes(Adjacente(ministro_andreazza,88))
 
@@ -93,25 +97,26 @@ class Grafo:
     urupa.add_adjacentes(Adjacente(alvorada,30))
 
     #Adicionar adjacentes de Teixeiropolis
-    teixeiropolis.add_adjacentes(Adjacente(jipa,52))
+    teixeiropolis.add_adjacentes(Adjacente(jipa,53))
     teixeiropolis.add_adjacentes((Adjacente(urupa,31)))
 
     #Adicionar adjacentes de Alvorada do Oeste
-    alvorada.add_adjacentes(Adjacente(jipa,80))
+    alvorada.add_adjacentes(Adjacente(jipa,79))
     alvorada.add_adjacentes(Adjacente(urupa,30))
-    alvorada.add_adjacentes(Adjacente(sao_miguel,69))
+    alvorada.add_adjacentes(Adjacente(sao_miguel,68))
+    alvorada.add_adjacentes(Adjacente(castanheiras, 66))
 
     #Adicionar adjacentes de Alvorada do Oeste
-    sao_miguel.add_adjacentes(Adjacente(alvorada,69))
+    sao_miguel.add_adjacentes(Adjacente(alvorada,68))
     sao_miguel.add_adjacentes(Adjacente(nova_brasilandia,51))
     sao_miguel.add_adjacentes(Adjacente(seringueiras,41))
 
     #Adicionar adjacentes de seringueiras
     seringueiras.add_adjacentes(Adjacente(sao_miguel,41))
-    seringueiras.add_adjacentes(Adjacente(sao_francisco,72))
+    seringueiras.add_adjacentes(Adjacente(sao_francisco,73))
 
     # Adicionar adjacentes são francisco
-    sao_francisco.add_adjacentes(Adjacente(seringueiras,72))
+    sao_francisco.add_adjacentes(Adjacente(seringueiras,73))
     sao_francisco.add_adjacentes(Adjacente(costa_marques,110))
 
     # Adicionar adjacentes de costa marques
@@ -138,12 +143,10 @@ class Grafo:
 
     cacoal.add_adjacentes(Adjacente(ministro_andreazza,34))
     cacoal.add_adjacentes(Adjacente(medice,70))
-    cacoal.add_adjacentes(Adjacente(espigao_d_oeste,62))
-    cacoal.add_adjacentes(Adjacente(parecis,95))
+    cacoal.add_adjacentes(Adjacente(espigao_d_oeste,57))
     cacoal.add_adjacentes(Adjacente(rolim_de_moura,63))
     cacoal.add_adjacentes(Adjacente(pimenta_boeno,43))
 
-    parecis.add_adjacentes(Adjacente(cacoal,95))
 
     espigao_d_oeste.add_adjacentes(Adjacente(ministro_andreazza,83))
     espigao_d_oeste.add_adjacentes(Adjacente(cacoal,62))
@@ -160,11 +163,16 @@ class Grafo:
     rolim_de_moura.add_adjacentes(Adjacente(novo_horizonte,26))
     rolim_de_moura.add_adjacentes(Adjacente(santa_luzia,20))
     rolim_de_moura.add_adjacentes(Adjacente(medice,73))
+    rolim_de_moura.add_adjacentes(Adjacente(castanheiras,56))
+
+    castanheiras.add_adjacentes(Adjacente(rolim_de_moura,56))
+    castanheiras.add_adjacentes(Adjacente(medice,41))
+    castanheiras.add_adjacentes(Adjacente(alvorada,66))
 
     primavera_de_rondonia.add_adjacentes(Adjacente(pimenta_boeno,28))
     primavera_de_rondonia.add_adjacentes(Adjacente(sao_felipe,30))
 
-    sao_felipe.add_adjacentes(Adjacente(primavera_de_rondonia,30))
+    sao_felipe.add_adjacentes(Adjacente(primavera_de_rondonia,28))
     sao_felipe.add_adjacentes(Adjacente(santa_luzia,29))
 
     santa_luzia.add_adjacentes(Adjacente(sao_felipe,29))
@@ -175,44 +183,6 @@ class Grafo:
     alto_alegre_do_parecis.add_adjacentes(Adjacente(santa_luzia,33))
 
     alta_floresta.add_adjacentes(Adjacente(santa_luzia,25))
-
-#método responsável por ordenar os adjacentes
-class VetorOrdenado:
-
-    def __init__(self, capacidade):
-        self.capacidade = capacidade
-        self.ultima_posicao = -1
-        # Mudança no tipo de dados
-        self.valores = np.empty(self.capacidade, dtype=object)
-
-    # Referência para o vértice e comparação com a distância A*
-    def insere(self, adjacente):
-        if self.ultima_posicao == self.capacidade - 1:
-            print('Capacidade máxima atingida')
-            return
-        posicao = 0
-        for i in range(self.ultima_posicao + 1):
-            posicao = i
-            if self.valores[i].distancia_aestrela > adjacente.distancia_aestrela:
-                break
-            if i == self.ultima_posicao:
-                posicao = i + 1
-        x = self.ultima_posicao
-        while x >= posicao:
-            self.valores[x + 1] = self.valores[x]
-            x -= 1
-        self.valores[posicao] = adjacente
-        self.ultima_posicao += 1
-
-    def imprime(self):
-        if self.ultima_posicao == -1:
-            print('O vetor está vazio')
-        else:
-            for i in range(self.ultima_posicao + 1):
-                print(i, ' - ', self.valores[i].vertice.rotulo, ' - ',
-                      self.valores[i].custo, ' - ',
-                      self.valores[i].vertice.distancia_objetivo, ' - ',
-                      self.valores[i].distancia_aestrela)
 
 class Vetor_Ordenado:
 
@@ -234,20 +204,85 @@ class A_Star:
         self.escontrado = False #Apenas para controlar se chegou ao objetivo ou não
 
     def buscar(self,atual):
+        global todos_adjacentes
         print("----------------")
-        print("Atual: {}".format(atual.rotulo))
+        print("Atual: {},  Distância Objetivo: {}".format(atual.rotulo, atual.distancia_objetivo))
         #Compara se o atual é objetivo, se sim marca como encontrado
         if(atual == self.objetivo):
+            #todos_adjacentes.append(atual)
             self.escontrado = True
-            print("Chegou")
+            print("--- Chegou ao destino ---")
         else:
             ordenaxao = Vetor_Ordenado(atual.adjacentes)
             ordenaxao.ordenar_menor()
+            todos_adjacentes.append(atual)
             for adj in ordenaxao.lista:
                 if(adj.vertice.visitado == False):
                     adj.vertice.visitado == True
             ordenaxao.imprimir_adjacentes_ordenados()
             self.buscar(ordenaxao.lista[0].vertice)
+
+
+class Desenhar_grafico:
+
+    def imprimir_grafo(self):
+        G = nx.Graph()
+        E = [('Ji-Paraná', 'OPO', 23), ('Ji-Paraná', 'Medici', 28)]
+        ab = ['Medici', 'Cacoal', 24]
+        E.append(ab)
+        G.add_weighted_edges_from(E)
+
+        pos = nx.spring_layout(G)
+        nx.draw(G, pos, with_labels=True, font_weight='bold')
+        edge_weight = nx.get_edge_attributes(G, 'weight')
+        nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_weight)
+        plt.show()
+
+    def gerar_grafo(self):
+        global todos_adjacentes
+        g = nx.Graph()
+        g1 = nx.Graph()
+        e = []
+        red_edges = []
+        for i in todos_adjacentes:
+            o = Vetor_Ordenado(i.adjacentes)
+            k = [i.rotulo, o.lista[0].vertice.rotulo,o.lista[0].custo]
+            red_edges.append(k)
+            for j in o.lista:
+                kkk = [i.rotulo, j.vertice.rotulo, j.custo]
+                e.append(kkk)
+        g.add_weighted_edges_from(e)
+        pos = nx.spring_layout(g)
+        g1.add_weighted_edges_from(red_edges)
+        nx.draw(g, pos, with_labels=True, font_weight='bold')
+        nx.draw(g1, pos, with_labels=True, font_weight='bold',node_color='green')
+        edge_weight = nx.get_edge_attributes(g, 'weight')
+        nx.draw_networkx_edge_labels(g, pos, edge_labels=edge_weight)
+        plt.show()
+
+    def gerar_grafo2(self):
+        global todos_adjacentes
+        G1 = nx.Graph()
+        G = nx.Graph()
+        for i in todos_adjacentes:
+            G1.add_node(i.rotulo)
+            G.add_node(i.rotulo)
+            o = Vetor_Ordenado(i.adjacentes)
+            for j in o.lista:
+                G.add_node(j.vertice.rotulo)
+                G.add_edge(i.rotulo, j.vertice.rotulo, weight= j.custo)
+        G1.add_node("Ji-paraná")
+        edges = G.edges()
+        edges = G1.edges()
+        pos = nx.spring_layout(G)
+        nx.draw(G, pos, with_labels=True)
+        nx.draw(G1, pos, with_labels=True,node_color='green')
+        edge_weight = nx.get_edge_attributes(G, 'weight')
+        nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_weight)
+
+        plt.show()
+
+
 
 
 
@@ -261,4 +296,11 @@ grafo = Grafo()
 #o.imprimir_adjacentes_ordenados()
 
 busca = A_Star(grafo.jipa)
-busca.buscar(grafo.sao_miguel)
+inicio = grafo.nova_uniao
+busca.buscar(inicio)
+
+for i in todos_adjacentes:
+    print(i.rotulo)
+
+d = Desenhar_grafico()
+d.gerar_grafo2()
