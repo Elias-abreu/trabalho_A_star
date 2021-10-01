@@ -6,6 +6,7 @@ todos_adjacentes = []
 
 #Classe para criar as vértices (nós) do grafo
 class Vertice:
+    #Rotulo recebe o nome do nó, distancia_objetivo é o valor estimado até o objetivo
     def __init__(self,rotulo, distancia_objetivo):
         self.rotulo = rotulo #Irá armazenar o nome das cidades
         self.distancia_objetivo = distancia_objetivo # Receberá a estimativa para chegada ao nó objetivo
@@ -63,7 +64,8 @@ class Grafo:
     nova_uniao = Vertice('Nova União',90)
     mirante_da_serra = Vertice('Mirante da Serra',110)
     alto_alegre_do_parecis = Vertice('Alto Alegre dos Parecis',180)
-
+    jaru = Vertice('Juru',75)
+    ariquemes = Vertice('Ariquemes',150)
 
     #Conectar as cidades adjacentes com o custo estimado (inicialmente a distância)
 
@@ -184,6 +186,173 @@ class Grafo:
 
     alta_floresta.add_adjacentes(Adjacente(santa_luzia,25))
 
+    #Adjacentes de Jaru
+    jaru.add_adjacentes(Adjacente(opo,40))
+    jaru.add_adjacentes(Adjacente(ariquemes, 80))
+
+    ariquemes.add_adjacentes(Adjacente(jaru,80))
+
+class Grafo_linha_reta:
+    #Criar todas as cidades (vertices)
+    #Colocar o nome da cidade e o custo estimado até a cidade objetivo
+    #Ver outras heurísticas
+    #A primeira heurística é o tempo estimado para chegada, coloquei em minutos
+    # Os testes até então vão de Pimenta Bueno a Ouro Preto
+    jipa = Vertice('Ji-paraná',0)
+    medice = Vertice('Presidente Médici',40) # Nome da cidade e o f(h), heuristica, aqui a estimativa de tempo até o objetivo
+    opo = Vertice('Ouro Preto do Oeste',45)
+    teixeiropolis = Vertice('Teixeirópolis',55)
+    alvorada = Vertice('Alvorada D. Oeste',90)
+    ministro_andreazza = Vertice('Ministro Andreazza',120)
+    castanheiras = Vertice('Castanheiras',100)
+    cacoal = Vertice('Cacoal',115)
+    rolim_de_moura = Vertice('Rolim de Moura',115)
+    espigao_d_oeste = Vertice('Espigão D. Oeste',185)
+    pimenta_boeno = Vertice('Pimenta Bueno',165)
+    urupa = Vertice('Urupá',85)
+    novo_horizonte = Vertice('Novo Horizonte do Oeste',130)
+    nova_brasilandia = Vertice('Nova Brasilândia D. Oeste',150)
+    sao_miguel = Vertice('São Miguel do Guaporé',160)
+    seringueiras = Vertice('Seringueiras',190)
+    sao_francisco = Vertice('São Francisco do Guaporé',240)
+    costa_marques = Vertice('Costa Marques',330)
+    santa_luzia = Vertice('Santa Luzia D. Oeste',140)
+    primavera_de_rondonia = Vertice('Primavera de Rondônia',175)
+    sao_felipe = Vertice('São Felipe D. Oeste',180)
+    alta_floresta = Vertice('Alta Floresta D. Oeste',170)
+    vale_do_paraiso = Vertice('Vale do Paraíso',80)
+    #jaru = Vertice('Jaru',95) #retirei Jaru para ficar marcado no grafo
+    nova_uniao = Vertice('Nova União',90)
+    mirante_da_serra = Vertice('Mirante da Serra',110)
+    alto_alegre_do_parecis = Vertice('Alto Alegre dos Parecis',180)
+    jaru = Vertice('Juru',75)
+    ariquemes = Vertice('Ariquemes',150)
+
+    #Conectar as cidades adjacentes com o custo estimado (inicialmente a distância)
+
+    #Adicionar os adjacentes de Ji-Paraná
+    jipa.add_adjacentes(Adjacente(opo,40))
+    jipa.add_adjacentes(Adjacente(teixeiropolis,53))
+    jipa.add_adjacentes(Adjacente(alvorada,79))
+    jipa.add_adjacentes(Adjacente(medice,36))
+    jipa.add_adjacentes(Adjacente(ministro_andreazza,88))
+
+    #adicionar os adjacentes de Ouro Preto
+    opo.add_adjacentes(Adjacente(jipa,40))
+    opo.add_adjacentes(Adjacente(vale_do_paraiso,37))
+    #opo.add_adjacentes(Adjacente(jaru,43))
+    opo.add_adjacentes(Adjacente(nova_uniao,46))
+
+    #Adicionar adjacentes do vale do paraíso
+    vale_do_paraiso.add_adjacentes(Adjacente(opo,37))
+
+    #Adicionar adjacentes de Nova União
+    nova_uniao.add_adjacentes(Adjacente(opo,46))
+    nova_uniao.add_adjacentes(Adjacente(mirante_da_serra,18))
+
+    #Adicionar adjaventes de Mirante da Serra
+    mirante_da_serra.add_adjacentes(Adjacente(nova_uniao,18))
+    mirante_da_serra.add_adjacentes(Adjacente(urupa,47))
+
+    #Adicionar adjaventes de Urupá
+    urupa.add_adjacentes(Adjacente(mirante_da_serra,47))
+    urupa.add_adjacentes(Adjacente(teixeiropolis,31))
+    urupa.add_adjacentes(Adjacente(alvorada,30))
+
+    #Adicionar adjacentes de Teixeiropolis
+    teixeiropolis.add_adjacentes(Adjacente(jipa,53))
+    teixeiropolis.add_adjacentes((Adjacente(urupa,31)))
+
+    #Adicionar adjacentes de Alvorada do Oeste
+    alvorada.add_adjacentes(Adjacente(jipa,79))
+    alvorada.add_adjacentes(Adjacente(urupa,30))
+    alvorada.add_adjacentes(Adjacente(sao_miguel,68))
+    alvorada.add_adjacentes(Adjacente(castanheiras, 66))
+
+    #Adicionar adjacentes de Alvorada do Oeste
+    sao_miguel.add_adjacentes(Adjacente(alvorada,68))
+    sao_miguel.add_adjacentes(Adjacente(nova_brasilandia,51))
+    sao_miguel.add_adjacentes(Adjacente(seringueiras,41))
+
+    #Adicionar adjacentes de seringueiras
+    seringueiras.add_adjacentes(Adjacente(sao_miguel,41))
+    seringueiras.add_adjacentes(Adjacente(sao_francisco,73))
+
+    # Adicionar adjacentes são francisco
+    sao_francisco.add_adjacentes(Adjacente(seringueiras,73))
+    sao_francisco.add_adjacentes(Adjacente(costa_marques,110))
+
+    # Adicionar adjacentes de costa marques
+    costa_marques.add_adjacentes(Adjacente(sao_francisco,110))
+
+    #Adicionar adjacentes de Nova Brasilândia
+    nova_brasilandia.add_adjacentes(Adjacente(sao_miguel,51))
+    nova_brasilandia.add_adjacentes(Adjacente(novo_horizonte,38))
+
+    #Adicionar adjacentes de Novo Horizonte do Oeste
+    novo_horizonte.add_adjacentes(Adjacente(nova_brasilandia,38))
+    novo_horizonte.add_adjacentes(Adjacente(rolim_de_moura,26))
+
+    medice.add_adjacentes(Adjacente(jipa,36))
+    medice.add_adjacentes(Adjacente(ministro_andreazza,90))
+    medice.add_adjacentes(Adjacente(castanheiras,41))
+    medice.add_adjacentes(Adjacente(cacoal,70))
+    medice.add_adjacentes(Adjacente(rolim_de_moura,73))
+
+    ministro_andreazza.add_adjacentes(Adjacente(jipa,88))
+    ministro_andreazza.add_adjacentes(Adjacente(medice,90))
+    ministro_andreazza.add_adjacentes(Adjacente(cacoal,34))
+    ministro_andreazza.add_adjacentes(Adjacente(espigao_d_oeste,83))
+
+    cacoal.add_adjacentes(Adjacente(ministro_andreazza,34))
+    cacoal.add_adjacentes(Adjacente(medice,70))
+    cacoal.add_adjacentes(Adjacente(espigao_d_oeste,57))
+    cacoal.add_adjacentes(Adjacente(rolim_de_moura,63))
+    cacoal.add_adjacentes(Adjacente(pimenta_boeno,43))
+
+
+    espigao_d_oeste.add_adjacentes(Adjacente(ministro_andreazza,83))
+    espigao_d_oeste.add_adjacentes(Adjacente(cacoal,62))
+    espigao_d_oeste.add_adjacentes(Adjacente(pimenta_boeno,33))
+
+    #Adicionar adjacentes de Pimenta Bueno, faltou vilhena e Chupiguaia, pois até então não pretendemos usar
+    pimenta_boeno.add_adjacentes(Adjacente(cacoal,43))
+    pimenta_boeno.add_adjacentes(Adjacente(espigao_d_oeste,33))
+    pimenta_boeno.add_adjacentes(Adjacente(primavera_de_rondonia,28))
+    pimenta_boeno.add_adjacentes(Adjacente(rolim_de_moura,66))
+
+    rolim_de_moura.add_adjacentes(Adjacente(pimenta_boeno,66))
+    rolim_de_moura.add_adjacentes(Adjacente(cacoal,63))
+    rolim_de_moura.add_adjacentes(Adjacente(novo_horizonte,26))
+    rolim_de_moura.add_adjacentes(Adjacente(santa_luzia,20))
+    rolim_de_moura.add_adjacentes(Adjacente(medice,73))
+    rolim_de_moura.add_adjacentes(Adjacente(castanheiras,56))
+
+    castanheiras.add_adjacentes(Adjacente(rolim_de_moura,56))
+    castanheiras.add_adjacentes(Adjacente(medice,41))
+    castanheiras.add_adjacentes(Adjacente(alvorada,66))
+
+    primavera_de_rondonia.add_adjacentes(Adjacente(pimenta_boeno,28))
+    primavera_de_rondonia.add_adjacentes(Adjacente(sao_felipe,30))
+
+    sao_felipe.add_adjacentes(Adjacente(primavera_de_rondonia,28))
+    sao_felipe.add_adjacentes(Adjacente(santa_luzia,29))
+
+    santa_luzia.add_adjacentes(Adjacente(sao_felipe,29))
+    santa_luzia.add_adjacentes(Adjacente(rolim_de_moura,20))
+    santa_luzia.add_adjacentes(Adjacente(alta_floresta,25))
+    santa_luzia.add_adjacentes(Adjacente(alto_alegre_do_parecis,33))
+
+    alto_alegre_do_parecis.add_adjacentes(Adjacente(santa_luzia,33))
+
+    alta_floresta.add_adjacentes(Adjacente(santa_luzia,25))
+
+    #Adjacentes de Jaru
+    jaru.add_adjacentes(Adjacente(opo,40))
+    jaru.add_adjacentes(Adjacente(ariquemes, 80))
+
+    ariquemes.add_adjacentes(Adjacente(jaru,80))
+
 class Vetor_Ordenado:
 
     def __init__(self,lista):
@@ -268,26 +437,24 @@ class Desenhar_grafico:
             G1.add_node(i.rotulo)
             G.add_node(i.rotulo)
             o = Vetor_Ordenado(i.adjacentes)
+            o.ordenar_menor()
+            G1.add_edge(i.rotulo, o.lista[0].vertice.rotulo, weight=o.lista[0].custo)
             for j in o.lista:
                 G.add_node(j.vertice.rotulo)
                 G.add_edge(i.rotulo, j.vertice.rotulo, weight= j.custo)
+
         G1.add_node("Ji-paraná")
         edges = G.edges()
         edges = G1.edges()
         pos = nx.spring_layout(G)
         nx.draw(G, pos, with_labels=True)
-        nx.draw(G1, pos, with_labels=True,node_color='green')
+        nx.draw(G1, pos, with_labels=True,node_color='red',edge_color='red',width=3)
         edge_weight = nx.get_edge_attributes(G, 'weight')
         nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_weight)
-
         plt.show()
 
-
-
-
-
-
 grafo = Grafo()
+#print(grafo.ariquemes.show_adjacentes())
 #print(grafo.jipa.adjacentes[0].vertice.rotulo," Tempo estimado até Jipa (Minutos): ",grafo.jipa.adjacentes[0].vertice.distancia_objetivo,"  Distância (KM): ",grafo.jipa.adjacentes[0].custo, "  Distância A*: ",grafo.jipa.adjacentes[0].distancia_a_star)
 
 #lista = grafo.cacoal.adjacentes
@@ -296,7 +463,7 @@ grafo = Grafo()
 #o.imprimir_adjacentes_ordenados()
 
 busca = A_Star(grafo.jipa)
-inicio = grafo.nova_uniao
+inicio = grafo.jaru
 busca.buscar(inicio)
 
 for i in todos_adjacentes:
