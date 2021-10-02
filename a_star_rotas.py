@@ -227,6 +227,35 @@ class Grafo_linha_reta:
     alto_alegre_do_parecis = Vertice('Alto Alegre dos Parecis',180)
     jaru = Vertice('Juru',75)
     ariquemes = Vertice('Ariquemes',150)
+	
+####
+###lado direito
+	gov_jorge_teixeira =  Vertice('Governador Jorge Teixeira',120)
+	cacaulandia = Vertice('Cacaulândia',150)
+	theobrama = Vertice('Theobrama',110)
+	vale_do_anari = Vertice('Vale do Anari',161)
+	machadinho_d_oeste = Vertice('Machadinho D`Oeste',216)
+	cujubim = Vertice('Cujubim',250) ### duas rotas
+	rio_crespo = Vertice('Rio Crespo',194)
+	alto_paraiso = Vertice('Alto Paraíso',210)
+	monte_negro = Vertice('Monte Negro',212)
+	campo_novo_de_rondonia = Vertice('Campo Novo de Rondônia',265)
+	buritis = Vertice('Buritis',288)
+	itapua_do_oeste = Vertice('Itapuã do Oeste',229)
+	candeias_do_jamari = Vertice('Candeias do Jamari',296)
+	porto_velho = Vertice('Porto Velho',324)
+	nova_mamore = Vertice('Nova Mamoré',495) ###duas rotas
+	guajara_mirim = Vertice('Guajará-Mirim',536) ###duas rotas
+	
+###lado esquerdo
+	vilhena = Vertice('Vilhena',285)
+	chupinguaia = Vertice('Chupinguaia',268)###duas rotas
+	colorado_do_oeste = Vertice('Colorado do Oeste',338)
+	cabixi = Vertice('Cabixi',378)
+	cerejeiras = Vertice('Cerejeiras',374)
+	corumbiara = Vertice('Corumbiara',366) ###duas rotas
+	pimenteiras_do_oeste = Vertice('Pimenteiras do Oeste',418)
+	 
 
     #Conectar as cidades adjacentes com o custo estimado (inicialmente a distância)
 
@@ -320,7 +349,9 @@ class Grafo_linha_reta:
     pimenta_boeno.add_adjacentes(Adjacente(espigao_d_oeste,33))
     pimenta_boeno.add_adjacentes(Adjacente(primavera_de_rondonia,28))
     pimenta_boeno.add_adjacentes(Adjacente(rolim_de_moura,66))
-
+	pimenta_boeno.add_adjacentes(Adjacente(vilhena,186)) ###linha adicionada para Vilhena e Chupiguaia
+	pimenta_boeno.add_adjacentes(Adjacente(chupiguaia,151))
+	
     rolim_de_moura.add_adjacentes(Adjacente(pimenta_boeno,66))
     rolim_de_moura.add_adjacentes(Adjacente(cacoal,63))
     rolim_de_moura.add_adjacentes(Adjacente(novo_horizonte,26))
@@ -352,6 +383,109 @@ class Grafo_linha_reta:
     jaru.add_adjacentes(Adjacente(ariquemes, 80))
 
     ariquemes.add_adjacentes(Adjacente(jaru,80))
+	
+#Adicionar os adjacentes de Governador Jorge Teixeira (cidades - Jaru)
+	gov_jorge_teixeira.(add_adjacentes(Adjacente,jaru,42))
+	
+#Adicionar os adjacentes de Cacaulândia (cidades - Jaru)
+	cacaulandia.(add_adjacentes(Adjacente,jaru,83))
+	
+#Adicionar os adjacentes de Theobrama (cidades - Jaru, Vale do Anari)
+	theobrama.(add_adjacentes(Adjacente,jaru,33))
+	theobrama.(add_adjacentes(Adjacente,vale_do_anari,55))
+	
+#Adicionar os adjacentes de Vale do Anari (cidades - Theobrama, Machadinho D`Oeste)
+	vale_do_anari.(add_adjacentes(Adjacente,theobrama,55))
+	vale_do_anari.(add_adjacentes(Adicionar,machadinho_d_oeste,63))
+	
+#Adicionar os adjacentes de Machadinho D`Oeste (cidades - Vale do Anari, Cujubim)
+	machadinho_d_oeste.(add_adjacentes(Adjacente,vale_do_anari,63))
+	machadinho_d_oeste.(add_adjacentes(Adjacente,cujubim,80))
+	machadinho_d_oeste.(add_adjacentes(Adjacente,ariquemes,149)) ***Olhar esta rota***
+	
+#Adicionar os adjacentes de Cujubim (cidades - Machadinho D`Oeste, Rio Crespo)
+	cujubim.(add_adjacentes(Adjacente,machadinho_d_oeste,80))
+	cujubim.(add_adjacentes(Adjacente,rio_crespo,74))
+	
+#Adicionar os adjacentes de Rio Crespo (cidades - Cujubim, Ariquemes)
+	rio_crespo.(add_adjacentes(Adjacente,cujubim,74))
+	rio_crespo.(add_adjacentes(Adjacente,ariquemes,52))
+	
+#Adicionar os adjacentes de  Ariquemes (cidades - Jaru, Machadinho D`Oeste, Rio Crespo, Itapuã do Oeste, Alto Paraíso,Monte Negro)
+	ariquemes.(add_adjacentes(Adjacente,jaru,96))
+	ariquemes.(add_adjacentes(Adjacente,machadinho_d_oeste,149))***Olhar esta rota***
+	ariquemes.(add_adjacentes(Adjacente,rio_crespo,52))
+	ariquemes.(add_adjacentes(Adjacente,itapua_do_oeste,92))
+	ariquemes.(add_adjacentes(Adjacente,alto_paraiso,59))
+	ariquemes.(add_adjacentes(Adjacente,monte_negro,54))
+	
+#Adicionar os adjacentes de Alto Paraíso (cidade - Ariquemes)
+	alto_paraiso.(add_adjacentes(Adjacente,ariquemes,59))
+	
+#Adicionar os adjacentes de  Itapuã D`Oeste (cidades - Ariquemes, Candeias do Jamari)
+	itapua_do_oeste.add_adjacentes(Adjacente,ariquemes,92))
+	itapua_do_oeste.add_adjacentes(Adjacente,candeias_do_jamari,89))
+	
+#Adicionar os adjacentes de Candeias do Jamari (cidades - Itapuã D`Oeste, Porto Velho)
+	candeias_do_jamari.add_adjacentes(Adjacente,itapua_do_oeste,89))
+	candeias_do_jamari.add_adjacentes(Adjacente,porto_velho,24))
+	
+#Adicionar os adjacentes de Porto Velho (cidades - Candeias do Jamari, Nova Marmoré)
+	porto_velho.(add_adjacentes(Adjacente,candeias_do_jamari,24))
+	porto_velho.(add_adjacentes(Adjacente,nova_mamore,281))
+	
+#Adicionar os adjacentes de  Nova Marmoré(cidades - Porto Velho,Buritis e Guajará-Mirim)
+	nova_mamore.(add_adjacentes(Adjacente,porto_velho,281))
+	nova_mamore.(add_adjacentes(Adjacente,guajara_mirim,48))
+	nova_mamore.(add_adjacentes(Adjacente,buritis,178))
+	
+#Adicionar os adjacentes de Guajará-Mirim (cidade - Nova Mamoré)
+	guajara_mirim.(add_adjacentes(Adjacente,nova_mamore,48))
+	
+#Adicionar os adjacentes de Buritis (cidades - Nova Mamoré, Campo Novo de Rondônia, Monte Negro)
+	buritis.(add_adjacentes(Adjacente,nova_mamore,178))
+	buritis.(add_adjacentes(Adjacente,campo_novo_de_rondonia,58))## duas rotas
+	buritis.(add_adjacentes(Adjacente,monte_negro,75))
+	
+#Adicionar os adjacentes de Campo Novo de Rondônia (cidades - Buritis, Monte Negro)
+	campo_novo_de_rondonia.(add_adjacentes(Adjacente,buritis,58))
+	campo_novo_de_rondonia.(add_adjacentes(Adjacente,monte_negro,75))
+	
+#Adicionar os adjacentes de Monte Negro (cidades Buritis, Ariquemes, Campo Novo de Rondônia)
+	monte_negro.(add_adjacentes(Adjacente,buritis,75))
+	monte_negro.(add_adjacentes(Adjacente,ariquemes,54))
+	monte_negro.(add_adjacentes(Adjacente,campo_novo_de_rondonia,75))
+	
+#Adicionar os adjacentes de Vilhena (cidades Pimenta Bueno,Chupinguaia, Colorado D`Oeste)
+	vilhena.(add_adjacentes(Adjacente,pimenta_boeno,186))
+	vilhena.(add_adjacentes(Adjacente,chupinguaia,157))
+	vilhena.(add_adjacentes(Adjacente,colorado_do_oeste,86))
+	
+#Adicionar os adjacentes de Chupinguaia (cidades - Pimenta Bueno, Vilhena, Colorado D`Oeste)
+	chupinguaia.(add_adjacentes(Adjacente,pimenta_boeno,151))
+	chupinguaia.(add_adjacentes(Adjacente,vilhena,157))
+	chupinguaia.(add_adjacentes(Adjacente,colorado_do_oeste,110))
+	
+#Adicionar os adjacentes de Colorado D`Oeste (cidades - Vilhena, Chupinguaia, Cabixi, Cerejeiras)
+	colorado_do_oeste.(add_adjacentes(Adjacente,vilhena,86))
+	colorado_do_oeste.(add_adjacentes(Adjacente,chupinguaia,110))
+	colorado_do_oeste.(add_adjacentes(Adjacente,cabixi,46))
+	colorado_do_oeste.(add_adjacentes(Adjacente,cerejeiras,39))
+	
+#Adicionar os adjacentes de Cabixi (cidade - Colorado D`Oeste)
+	cabixi.(add_adjacentes(Adjacente,colorado_do_oeste,46))
+	
+#Adicionar os adjacentes de Cerejeiras (cidades - Colorado D`Oeste, Corumbiara e Pimenta D`Oeste)
+	cerejeiras.(add_adjacentes(Adjacente,colorado_do_oeste,39))
+	cerejeiras.(add_adjacentes(Adjacente,corumbiara,38))
+	cerejeiras.(add_adjacentes(Adjacente,pimenteiras_do_oeste,53))
+	
+#Adicionar os adjacentes de Corumbiara (cidade - Cerejeiras)
+	corumbiara.(add_adjacentes(Adjacente,cerejeiras,38))
+	
+#Adicionar os adjacentes de Pimenteiras D`Oesteeste (cidade - Cerejeiras)
+	pimenteiras_do_oeste.(add_adjacentes(Adjacente,cerejeiras,53))
+	
 
 class Vetor_Ordenado:
 
