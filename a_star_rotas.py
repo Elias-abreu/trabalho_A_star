@@ -77,10 +77,10 @@ class Grafo_h2:
     alto_paraiso = Vertice('Alto Paraíso', 210)
     monte_negro = Vertice('Monte Negro', 212)
     campo_novo_de_rondonia = Vertice('Campo Novo de Rondônia', 265)
-    buritis = Vertice('Buritis', 288)
+    buritis = Vertice('Buritis', 300)
     itapua_do_oeste = Vertice('Itapuã do Oeste', 229)
     candeias_do_jamari = Vertice('Candeias do Jamari', 296)
-    porto_velho = Vertice('Porto Velho', 324)
+    porto_velho = Vertice('Porto Velho', 315)
     nova_mamore = Vertice('Nova Mamoré', 495)  ###duas rotas
     guajara_mirim = Vertice('Guajará-Mirim', 536)  ###duas rotas
 
@@ -650,9 +650,9 @@ class Grafo_h3:
     medice = Vertice('Presidente Médici',40*1) # Nome da cidade e o f(h), heuristica, aqui a estimativa de tempo até o objetivo
     opo = Vertice('Ouro Preto do Oeste',45*1)
     teixeiropolis = Vertice('Teixeirópolis',55*1)
-    alvorada = Vertice('Alvorada D. Oeste',90*1.3)
+    alvorada = Vertice('Alvorada D. Oeste',90*1.1)
     ministro_andreazza = Vertice('Ministro Andreazza',120*1.1)
-    castanheiras = Vertice('Castanheiras',100*1.2)
+    castanheiras = Vertice('Castanheiras',100*1.1)
     cacoal = Vertice('Cacoal',115*1)
     rolim_de_moura = Vertice('Rolim de Moura',115*1)
     espigao_d_oeste = Vertice('Espigão D. Oeste',185*1.2)
@@ -668,7 +668,7 @@ class Grafo_h3:
     primavera_de_rondonia = Vertice('Primavera de Rondônia',175*1.1)
     sao_felipe = Vertice('São Felipe D. Oeste',180*1.2)
     alta_floresta = Vertice('Alta Floresta D. Oeste',170*1.2)
-    vale_do_paraiso = Vertice('Vale do Paraíso',80*1.2)
+    vale_do_paraiso = Vertice('Vale do Paraíso',80*1.1)
     #jaru = Vertice('Jaru',95) #retirei Jaru para ficar marcado no grafo
     nova_uniao = Vertice('Nova União',90*1.1)
     mirante_da_serra = Vertice('Mirante da Serra',110*1.1)
@@ -686,10 +686,10 @@ class Grafo_h3:
     alto_paraiso = Vertice('Alto Paraíso', 210*1.1)
     monte_negro = Vertice('Monte Negro', 212*1.2)
     campo_novo_de_rondonia = Vertice('Campo Novo de Rondônia', 265*1.1)
-    buritis = Vertice('Buritis', 288*1.4)
+    buritis = Vertice('Buritis', 300*1.4)
     itapua_do_oeste = Vertice('Itapuã do Oeste', 229*1)
     candeias_do_jamari = Vertice('Candeias do Jamari', 296*1)
-    porto_velho = Vertice('Porto Velho', 300*1)
+    porto_velho = Vertice('Porto Velho', 315*1)
     nova_mamore = Vertice('Nova Mamoré', 495*1.1)  ###duas rotas
     guajara_mirim = Vertice('Guajará-Mirim', 536*1.2)  ###duas rotas
 
